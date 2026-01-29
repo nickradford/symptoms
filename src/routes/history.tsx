@@ -1,38 +1,19 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { HomeScreen } from '@/components/HomeScreen'
+import { HistoryScreen } from '@/components/HistoryScreen'
 import { useEntries } from '@/lib/useEntries'
 import { storage } from '@/lib/storage'
-import type { Category, Entry } from '@/lib/types'
+import type { Entry } from '@/lib/types'
 
-export const Route = createFileRoute('/')({
-  component: HomePage,
+export const Route = createFileRoute('/history')({
+  component: HistoryPage,
 })
 
-function HomePage() {
+function HistoryPage() {
   const {
     entries,
-    addMultipleEntries,
-    addSymptom,
     updateEntry,
     deleteEntry,
   } = useEntries()
-
-  const handleAddEntry = (
-    items: Array<string>,
-    category: Exclude<Category, 'symptom'>,
-    timestamp: string,
-  ) => {
-    addMultipleEntries(items, category, timestamp)
-  }
-
-  const handleAddSymptom = (
-    name: string,
-    severity: number,
-    timestamp: string,
-    notes?: string,
-  ) => {
-    addSymptom(name, severity, timestamp, notes)
-  }
 
   const handleImportEntries = (importedEntries: Array<Entry>) => {
     const merged = [...entries]
@@ -47,10 +28,8 @@ function HomePage() {
   }
 
   return (
-    <HomeScreen
+    <HistoryScreen
       entries={entries}
-      onAddEntry={handleAddEntry}
-      onAddSymptom={handleAddSymptom}
       onEditEntry={updateEntry}
       onDeleteEntry={deleteEntry}
       onImportEntries={handleImportEntries}

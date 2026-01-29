@@ -1,6 +1,8 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
+import { HeadContent, Scripts, createRootRoute, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
+import { Toaster } from 'sonner'
+import { useEffect, useState } from 'react'
 
 import appCss from '../styles.css?url'
 
@@ -15,7 +17,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'Symptoms - Health Tracker',
       },
     ],
     links: [
@@ -26,17 +28,43 @@ export const Route = createRootRoute({
     ],
   }),
 
+  component: RootComponent,
   shellComponent: RootDocument,
 })
 
+function RootComponent() {
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  if (!isMounted) {
+    return null
+  }
+
+  return <Outlet />
+}
+
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <HeadContent />
       </head>
       <body>
         {children}
+        <Toaster
+          theme="dark"
+          toastOptions={{
+            classNameFunction: () => 'bg-stone-800 border border-stone-700 text-gray-100',
+            style: {
+              background: '#292524',
+              border: '1px solid #44403c',
+              color: '#f5f5f4',
+            },
+          }}
+        />
         <TanStackDevtools
           config={{
             position: 'bottom-right',
