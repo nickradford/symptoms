@@ -73,6 +73,7 @@ export function SymptomModal({
             <Input
               ref={inputRef}
               id="symptom-name"
+              name="symptom-name"
               type="text"
               placeholder="e.g., headache, nausea, fatigue"
               value={name}
@@ -106,6 +107,7 @@ export function SymptomModal({
             <Label htmlFor="symptom-notes">Notes (optional)</Label>
             <Textarea
               id="symptom-notes"
+              name="symptom-notes"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               onKeyDown={handleKeyDown}
