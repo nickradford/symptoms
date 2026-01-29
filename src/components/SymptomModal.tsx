@@ -69,11 +69,10 @@ export function SymptomModal({
         <div className="space-y-4">
           {/* Symptom Name */}
           <div className="space-y-2">
-            <Label htmlFor="symptom-name">Symptom</Label>
+            <Label htmlFor="symptom">Symptom</Label>
             <Input
               ref={inputRef}
-              id="symptom-name"
-              name="symptom-name"
+              id="symptom"
               type="text"
               placeholder="e.g., headache, nausea, fatigue"
               value={name}
